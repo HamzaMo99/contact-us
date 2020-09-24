@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Website Contact Form</title>
+    <script>
+        function _(id) { return document.getElementById(id); }
+        function submitForm() {
+            _("mybtn").disabled = true;
+            _("status").innerHTML = 'please wait ...';
+            var formdata = new FormData();
+            formdata.append("n", _("n").value);
+            formdata.append("e", _("e").value);
+            formdata.append("m", _("m").value);
+            var ajax = new XMLHttpRequest();
+            ajax.open("POST", "example_parser.php");
+            ajax.onreadystatechange = function () {
+                if (ajax.readyState == 4 && ajax.status == 200) {
+                    if (ajax.responseText == "success") {
+                        _("my_form").innerHTML = '<h2>Thanks ' + _("n").value + ', your message has been sent.</h2>';
+                    } else {
+                        _("status").innerHTML = ajax.responseText;
+                        _("mybtn").disabled = false;
+                    }
+                }
+            }
+            ajax.send(formdata);
+        }
+    </script>
+
+    <style>
+         form {
+width:750px; /*هذا الكود خاص بعرض ا*لفورم */
+height:235px; /*هذا الكود خاص بطول الفورم يجعله يبدا ب1 بكسل وكلما زاد طول المحتوي يزداد طوله تلقائي */
+background:#4e5860; /*هذا الكود خاص بخلفية الفورم */
+margin:0 auto; /*هذا الكود خاص بجعل الفورم في وسط الصفحة وهو كود مهم جدا للجميع */
+padding:20px; /*هذا الكود خاص بعمل حدود داخليه للفورم */
+direction:rtl; /* هذا الكود خاص بجعل المحتوي في الفورم يبدا من اليمين الي اليسار*/
+margin-top:10%; /* هذا الكود خاص بنقل الفورم من اعلي الصفحة*/
+}
+form input{
+border:0; /*هذا الكود خاص بالغاء الاط *ار حول الح*قل  */
+padding:5px; /*هذا الكود خاص بوضع حدود داخلية للحقل*/
+width:250px; /*هذا الكود خاص بعرض الحقل */
+height:30px; /*هذا الكود خاص بطول الحقل  */
+font-family: 'Droid Arabic Kufi', sans-serif; /* هذا الكود خاص بنوع الخط */
+border-radius:5px; /* هذا الكود الخاص بعمل حدود دائرية للحقل   */
+-o-border-radius:5px; /* نفس الكود السابق ولكن هذا الكود الخاص بمتصفح اوبرا   */
+-moz-border-radius:5px; /* نفس الكود السابق ولكن هذا الكود الخاص بمتصفح الموزيلا*/
+-webkit-border-radius:5px; /* نفس الكود السابق ولكن هذا الكود الخاص بمتصفح الكروم*/
+display:block; /*هذا الكود خاص بعرض الحقول فوق بعضه */
+margin-bottom:10px; /*هذا الكود الخاص بابعاد كل حقل عن التالي له من اسفل*/
+ }
+ form textarea{
+border:0; /*هذا الكود خاص بالغاء الاط ار حول الحقل */
+padding:5px; /*هذا الكود خاص بوضع حدود داخلية للحقل */
+width:450px; /*هذا الكود خاص بعرض الحقل*/
+height:180px; /*هذا الكود خاص بطول الحقل*/
+font-family: 'Droid Arabic Kufi', sans-serif; /* هذا الكود خاص بنوع الخط */
+border-radius:5px; /* هذا الكود الخاص بعمل حدود دائرية للحقل*/
+-o-border-radius:5px; /* نفس الكود السابق ولكن هذا الكود الخاص بمتصفح اوبرا */
+-moz-border-radius:5px; /* نفس الكود السابق ولكن هذا الكود الخاص بمتصفح الموزيلا */
+-webkit-border-radius:5px; /* نفس الكود السابق ولكن هذا الكود الخاص بمتصفح الكروم */
+display:block; /*هذا الكود خاص بعرض الحقول فوق بعضه*/
+margin-bottom:10px; /*هذا الكود الخاص بابعاد كل حقل عن التالي له من اسفل*/
+float:left; /* هذا الكود الخاص بجعل الحقل الخاص بكالتابه يكون ناحية اليسار*/
+resize:none; /* هذا الكود خاص بجعل الحقل الخاص بالرسالة غير قابل لاعادة تغيير حجمه من قبل المستخدم*/
+}
+form button{
+margin-right:220px; /*هذا الكود خاص بازاحة الزر ناحية اليسار */
+width:350px;   /*هذا الكود خاص بعرض الحقل*/
+height:40px;   /* هذا الكود الخاص بارتفاع الحقل*/
+font-family: 'Droid Arabic Kufi', sans-serif; /* هذا الكود خاص بنوع الخط  */
+background:#ff3c1f; /*هذا الكود الخاص بخلفية الحقل*/
+border:0; /*هذا الكود خاص بالغاء الاط ار حول الحقل */
+color:white; /*هذا الكود الخاص بلون الخط داخل الحقل*/
+}
+    </style>
+</head>
+
+<body>
+                <form action="send.php" method="post">
+                    <textarea placeholder="ادخل الرسالة" name="message"></textarea>
+                    <input placeholder="ادخل اسمك بالكامل" type="text" name="fullname" />
+                    <input placeholder="ادخل بريدك الالكتروني" type="email" name="email" />
+                    <input placeholder="ادخل الدولة الخاصة بك" type="text" name="country" />
+                    <input placeholder="ادخل عنوان الرسالة" type="text" name="subject" />
+                    <button type="submit">ارسال الرساله</button>
+                </form>
+</body>
+
+</html>
